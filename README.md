@@ -1,5 +1,5 @@
 # blancoApexFormatterCli
-code formatter for Apex language written in Java.
+command line interface of code formatter for Apex language written in Java.
 
 ## usage
 
