@@ -63,14 +63,25 @@ public class BlancoApexFormatterCli {
 
 	public static Options getOptions() {
 		final Options options = new Options();
-		options.addOption(Option.builder("i").required(true).hasArg(true) //
-				.argName("inputdir").desc("input directory.").build());
-		options.addOption(Option.builder("o").required(true).hasArg(true) //
-				.argName("outputdir").desc("output directory.").build());
-		options.addOption(Option.builder("h").required(false).hasArg(false) //
-				.argName("help").desc("show usage.").build());
-		options.addOption(Option.builder("v").required(false).hasArg(false) //
-				.argName("verbose").desc("run verbose mode.").build());
+		options.addOption(Option.builder("i").longOpt("input") //
+				.required(true) //
+				.hasArg(true).argName("inputdir")//
+				.desc("input directory.").build());
+		options.addOption(Option.builder("o").longOpt("output") //
+				.required(true) //
+				.hasArg(true).argName("outputdir")//
+				.desc("output directory.").build());
+		options.addOption(Option.builder("h").longOpt("help") //
+				.required(false) //
+				.hasArg(false) //
+				.desc("show usage.").build());
+		options.addOption(Option.builder("v").longOpt("verbose") //
+				.required(false) //
+				.hasArg(false) //
+				.desc("run verbose mode.").build());
+
+		options.addOption(Option.builder("xfws").required(false).hasArg(false) //
+				.argName("format_squishwhitespace").desc("format with whitespace squish.").build());
 
 		return options;
 	}
