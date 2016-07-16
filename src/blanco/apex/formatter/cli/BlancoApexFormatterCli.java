@@ -15,6 +15,8 @@
  */
 package blanco.apex.formatter.cli;
 
+import java.io.File;
+
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
@@ -95,6 +97,32 @@ public class BlancoApexFormatterCli {
 					.setFormatBracket("true".equalsIgnoreCase(cmd.getOptionValue("xbracket", "true")));
 			if (settings.getVerbose()) {
 				System.out.println("xbracket: [" + settings.getFormatterSettings().getFormatBracket() + "]");
+			}
+
+			final File inputFile = new File(input);
+			if (inputFile.exists() == false) {
+				System.out
+						.println("Error: specified input directory [" + inputFile.getAbsolutePath() + "] not exists.");
+				return;
+			}
+			if (inputFile.isDirectory() == false) {
+				System.out.println(
+						"Error: specified input directory [" + inputFile.getAbsolutePath() + "] is not a directory.");
+				return;
+			}
+
+			final File outputFile = new File(output);
+			if (outputFile.exists() == false) {
+				if (outputFile.mkdirs() == false) {
+					System.out.println("Error: fail to create specified output directory ["
+							+ outputFile.getAbsolutePath() + "] with error.");
+					return;
+				}
+			}
+			if (outputFile.isDirectory() == false) {
+				System.out.println(
+						"Error: specified output directory [" + outputFile.getAbsolutePath() + "] is not a directory.");
+				return;
 			}
 
 		} catch (ParseException ex) {
