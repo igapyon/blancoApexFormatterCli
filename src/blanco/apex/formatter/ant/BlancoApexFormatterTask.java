@@ -65,6 +65,8 @@ public class BlancoApexFormatterTask extends Task {
 
 	@Override
 	public void execute() throws BuildException {
+		BlancoApexFormatterCli.showVersion();
+
 		validate();
 
 		if (BlancoApexFormatterCli.validate(settings) == false) {

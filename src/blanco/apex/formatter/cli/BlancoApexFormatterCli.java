@@ -54,6 +54,7 @@ public class BlancoApexFormatterCli {
 
 	public static void showVersion() {
 		System.err.println("BlancoApexFormatterCli");
+		System.err.println("    cli           : " + BlancoApexFormatterCliConstants.getVersion());
 		System.err.println("    formatter     : " + BlancoApexFormatterConstants.getVersion());
 		System.err.println("    syntax parser : " + BlancoApexSyntaxConstants.getVersion());
 		System.err.println("    lexical parser: " + BlancoApexConstants.getVersion());

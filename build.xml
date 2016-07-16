@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="blancoApexFormatterCli" default="runFormat" basedir=".">
+<project name="blancoApexFormatterCli" default="doFormat" basedir=".">
 	<taskdef name="apexformatter" classname="blanco.apex.formatter.ant.BlancoApexFormatterTask">
 		<classpath>
 			<pathelement location="./blancoApexFormatterCli.jar" />
@@ -11,7 +11,7 @@
 		</classpath>
 	</taskdef>
 
-	<target name="runFormat">
+	<target name="doFormat">
 		<apexformatter input="./test/data/apex/" output="./test/data/apex.output" xsmashwhitespace="false" />
 	</target>
 
