@@ -29,20 +29,9 @@ import blanco.apex.syntaxparser.BlancoApexSyntaxConstants;
 
 public class BlancoApexFormatterCli {
 	public static void main(final String[] args) {
-		System.err.println("blancoApexFormatter: " + BlancoApexFormatterConstants.getVersion());
-		System.err.println("     lexical parser: " + BlancoApexConstants.getVersion());
-		System.err.println("      syntax parser: " + BlancoApexSyntaxConstants.getVersion());
+		showVersion();
 
-		final Options options = new Options();
-		options.addOption(Option.builder("i").required(true).hasArg(true) //
-				.argName("inputdir") //
-				.desc("input directory.").build());
-		options.addOption(Option.builder("o").required(true).hasArg(true) //
-				.argName("outputdir") //
-				.desc("output directory.").build());
-		options.addOption(Option.builder("h").required(false).hasArg(false) //
-				.argName("help") //
-				.desc("show usage.").build());
+		final Options options = getOptions();
 
 		final CommandLineParser parser = new DefaultParser();
 		try {
@@ -51,14 +40,37 @@ public class BlancoApexFormatterCli {
 			if (cmd.hasOption("h")) {
 				showUsage(options);
 			}
+
+			// main process
+
 		} catch (ParseException ex) {
 			System.err.println("Parse argument failed. Reason: " + ex.getMessage());
 			showUsage(options);
 		}
 	}
 
+	public static void showVersion() {
+		System.err.println("blancoApexFormatter: " + BlancoApexFormatterConstants.getVersion());
+		System.err.println("     lexical parser: " + BlancoApexConstants.getVersion());
+		System.err.println("      syntax parser: " + BlancoApexSyntaxConstants.getVersion());
+	}
+
 	public static void showUsage(final Options options) {
 		final HelpFormatter formatter = new HelpFormatter();
-		formatter.printHelp("blancoApexFormatterCli", options);
+		formatter.printHelp("BlancoApexFormatterCli", options);
+	}
+
+	public static Options getOptions() {
+		final Options options = new Options();
+		options.addOption(Option.builder("i").required(true).hasArg(true) //
+				.argName("inputdir").desc("input directory.").build());
+		options.addOption(Option.builder("o").required(true).hasArg(true) //
+				.argName("outputdir").desc("output directory.").build());
+		options.addOption(Option.builder("h").required(false).hasArg(false) //
+				.argName("help").desc("show usage.").build());
+		options.addOption(Option.builder("v").required(false).hasArg(false) //
+				.argName("verbose").desc("run verbose mode.").build());
+
+		return options;
 	}
 }
