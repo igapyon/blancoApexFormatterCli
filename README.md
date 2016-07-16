@@ -3,7 +3,8 @@ command line interface of code formatter for Apex language written in Java.
 
 ## usage
 
-Prepare *.cls file as input.
+### Ant task
+Write ant taskdef like below.
 
 ```xml
 	<taskdef name="apexformatter" classname="blanco.apex.formatter.ant.BlancoApexFormatterTask">
@@ -16,10 +17,19 @@ Prepare *.cls file as input.
 			<pathelement location="./lib/apache/commons-io-2.5.jar" />
 		</classpath>
 	</taskdef>
+```
+
+Run ant task like below.
+
+```xml
 	<target name="doFormat">
 		<apexformatter input="./test/data/apex/" output="./test/data/apex.output" verbose="true" xsmashwhitespace="false" />
 	</target>
 ```
+
+### Command line
+
+To be continued.
 
 ## LICENSE
 
