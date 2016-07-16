@@ -45,6 +45,8 @@ public class BlancoApexFormatterTask extends Task {
 
 	@Override
 	public void execute() throws BuildException {
+		validate();
+
 		if (BlancoApexFormatterCli.validate(settings) == false) {
 			throw new BuildException("Parameter error");
 		}
@@ -53,6 +55,15 @@ public class BlancoApexFormatterTask extends Task {
 			BlancoApexFormatterCli.process(settings);
 		} catch (IOException ex) {
 			throw new BuildException(ex);
+		}
+	}
+
+	protected void validate() {
+		if (settings.getInput() == null) {
+			throw new BuildException("input attribute is required");
+		}
+		if (settings.getOutput() == null) {
+			throw new BuildException("output attribute is required");
 		}
 	}
 }
