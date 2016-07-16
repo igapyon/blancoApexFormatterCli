@@ -12,7 +12,7 @@
 	</taskdef>
 
 	<target name="runFormat">
-		<apexformatter input="./test/data/apex/" output="./test/data/apex.output" />
+		<apexformatter input="./test/data/apex/" output="./test/data/apex.output" xsmashwhitespace="false" />
 	</target>
 
 	<target name="pack">

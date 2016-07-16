@@ -38,9 +38,29 @@ public class BlancoApexFormatterTask extends Task {
 		settings.setOutput(output);
 	}
 
-	public void setSmashWhitespace(final boolean smashwhitespace) {
+	public void setXsmashwhitespace(final boolean smashwhitespace) {
 		settings.getFormatterSettings().setSmashWhitespace(smashwhitespace);
 
+	}
+
+	public void setXcomma(final boolean arg) {
+		settings.getFormatterSettings().setFormatComma(arg);
+	}
+
+	public void setXsemicolon(final boolean arg) {
+		settings.getFormatterSettings().setFormatSemicolon(arg);
+	}
+
+	public void setXindent(final boolean arg) {
+		settings.getFormatterSettings().setFormatIndent(arg);
+	}
+
+	public void setXspecialchar(final boolean arg) {
+		settings.getFormatterSettings().setFormatSpecialChar(arg);
+	}
+
+	public void setXbracket(final boolean arg) {
+		settings.getFormatterSettings().setFormatBracket(arg);
 	}
 
 	@Override
