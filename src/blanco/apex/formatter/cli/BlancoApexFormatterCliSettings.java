@@ -15,6 +15,8 @@
  */
 package blanco.apex.formatter.cli;
 
+import java.io.File;
+
 import blanco.apex.formatter.BlancoApexFormatterSettings;
 
 public class BlancoApexFormatterCliSettings {
@@ -26,27 +28,49 @@ public class BlancoApexFormatterCliSettings {
 
 	protected BlancoApexFormatterSettings formatterSettings = new BlancoApexFormatterSettings();
 
-	public boolean getVerbose() {
-		return isVerbose;
-	}
+	///////
+	//
+	protected File inputFile = null;
 
-	public void setVerbose(boolean isVerbose) {
-		this.isVerbose = isVerbose;
+	protected File outputFile = null;
+
+	public BlancoApexFormatterSettings getFormatterSettings() {
+		return formatterSettings;
 	}
 
 	public String getInput() {
 		return input;
 	}
 
-	public void setInput(String input) {
-		this.input = input;
+	public File getInputFile() {
+		return inputFile;
 	}
 
-	public BlancoApexFormatterSettings getFormatterSettings() {
-		return formatterSettings;
+	public File getOutputFile() {
+		return outputFile;
+	}
+
+	public boolean getVerbose() {
+		return isVerbose;
 	}
 
 	public void setFormatterSettings(BlancoApexFormatterSettings formatterSettings) {
 		this.formatterSettings = formatterSettings;
+	}
+
+	public void setInput(String input) {
+		this.input = input;
+	}
+
+	public void setInputFile(File inputFile) {
+		this.inputFile = inputFile;
+	}
+
+	public void setOutputFile(File outputFile) {
+		this.outputFile = outputFile;
+	}
+
+	public void setVerbose(boolean isVerbose) {
+		this.isVerbose = isVerbose;
 	}
 }

@@ -43,124 +43,13 @@ public class BlancoApexFormatterCli {
 
 		final Options options = getOptions();
 
-		final CommandLineParser parser = new DefaultParser();
-		try {
-			final CommandLine cmd = parser.parse(options, args);
+		parse(settings, options, args);
 
-			if (cmd.hasOption("h")) {
-				showUsage(options);
-			}
-
-			// main process
-
-			settings.setVerbose(cmd.hasOption("v"));
-			if (settings.getVerbose()) {
-				System.out.println("verbose: [" + settings.getVerbose() + "]");
-			}
-
-			final String input = cmd.getOptionValue("i");
-			if (settings.getVerbose()) {
-				System.out.println("input: [" + input + "]");
-			}
-
-			final String output = cmd.getOptionValue("o");
-			if (settings.getVerbose()) {
-				System.out.println("output: [" + output + "]");
-			}
-
-			settings.getFormatterSettings()
-					.setSmashWhitespace("true".equalsIgnoreCase(cmd.getOptionValue("xsmashwhitespace", "false")));
-			if (settings.getVerbose()) {
-				System.out.println("xsmashwhitespace: [" + settings.getFormatterSettings().getSmashWhitespace() + "]");
-			}
-
-			settings.getFormatterSettings()
-					.setFormatComma("true".equalsIgnoreCase(cmd.getOptionValue("xcomma", "true")));
-			if (settings.getVerbose()) {
-				System.out.println("xcomma: [" + settings.getFormatterSettings().getFormatComma() + "]");
-			}
-
-			settings.getFormatterSettings()
-					.setFormatSemicolon("true".equalsIgnoreCase(cmd.getOptionValue("xsemicolon", "true")));
-			if (settings.getVerbose()) {
-				System.out.println("xsemicolon: [" + settings.getFormatterSettings().getFormatSemicolon() + "]");
-			}
-
-			settings.getFormatterSettings()
-					.setFormatIndent("true".equalsIgnoreCase(cmd.getOptionValue("xindent", "true")));
-			if (settings.getVerbose()) {
-				System.out.println("xindent: [" + settings.getFormatterSettings().getFormatIndent() + "]");
-			}
-
-			settings.getFormatterSettings()
-					.setFormatSpecialChar("true".equalsIgnoreCase(cmd.getOptionValue("xspecialchar", "true")));
-			if (settings.getVerbose()) {
-				System.out.println("xspecialchar: [" + settings.getFormatterSettings().getFormatSpecialChar() + "]");
-			}
-
-			settings.getFormatterSettings()
-					.setFormatBracket("true".equalsIgnoreCase(cmd.getOptionValue("xbracket", "true")));
-			if (settings.getVerbose()) {
-				System.out.println("xbracket: [" + settings.getFormatterSettings().getFormatBracket() + "]");
-			}
-
-			final File inputFile = new File(input);
-			if (inputFile.exists() == false) {
-				System.out
-						.println("Error: specified input directory [" + inputFile.getAbsolutePath() + "] not exists.");
-				return;
-			}
-			if (inputFile.isDirectory() == false) {
-				System.out.println(
-						"Error: specified input directory [" + inputFile.getAbsolutePath() + "] is not a directory.");
-				return;
-			}
-
-			final File outputFile = new File(output);
-			if (outputFile.exists() == false) {
-				if (outputFile.mkdirs() == false) {
-					System.out.println("Error: fail to create specified output directory ["
-							+ outputFile.getAbsolutePath() + "] with error.");
-					return;
-				}
-			}
-			if (outputFile.isDirectory() == false) {
-				System.out.println(
-						"Error: specified output directory [" + outputFile.getAbsolutePath() + "] is not a directory.");
-				return;
-			}
-
-			final List<File> fileList = (List<File>) FileUtils.listFiles(inputFile,
-					FileFilterUtils.suffixFileFilter(".cls"), FileFilterUtils.trueFileFilter());
-
-			for (final File readFile : fileList) {
-				final String sourceFileString = FileUtils.readFileToString(readFile, "UTF-8");
-				final String formattedFileString = new BlancoApexFormatter(settings.getFormatterSettings())
-						.format(sourceFileString);
-
-				final File targetFileCandidate = new File(outputFile, readFile.getName());
-				if (targetFileCandidate.exists() == false) {
-					// create.
-					System.out.println("  create: " + targetFileCandidate.getAbsolutePath());
-					FileUtils.writeStringToFile(targetFileCandidate, formattedFileString, "UTF-8");
-				} else {
-					// update.
-					final String targetFileString = FileUtils.readFileToString(targetFileCandidate, "UTF-8");
-					if (formattedFileString.equals(targetFileString)) {
-						// no changes
-						System.out.println("  none  : " + targetFileCandidate.getAbsolutePath());
-					} else {
-						// update
-						System.out.println("  update: " + targetFileCandidate.getAbsolutePath());
-						FileUtils.writeStringToFile(targetFileCandidate, formattedFileString, "UTF-8");
-					}
-				}
-			}
-
-		} catch (ParseException ex) {
-			System.err.println("Parse argument failed. Reason: " + ex.getMessage());
-			showUsage(options);
+		if (validate(settings) == false) {
+			return;
 		}
+
+		process(settings);
 	}
 
 	public static void showVersion() {
@@ -223,5 +112,134 @@ public class BlancoApexFormatterCli {
 				.desc("format bracket.").build());
 
 		return options;
+	}
+
+	public static void parse(final BlancoApexFormatterCliSettings settings, final Options options,
+			final String[] args) {
+		final CommandLineParser parser = new DefaultParser();
+		try {
+			final CommandLine cmd = parser.parse(options, args);
+
+			if (cmd.hasOption("h")) {
+				showUsage(options);
+			}
+
+			// main process
+
+			settings.setVerbose(cmd.hasOption("v"));
+			if (settings.getVerbose()) {
+				System.out.println("verbose: [" + settings.getVerbose() + "]");
+			}
+
+			final String input = cmd.getOptionValue("i");
+			if (settings.getVerbose()) {
+				System.out.println("input: [" + input + "]");
+			}
+
+			final String output = cmd.getOptionValue("o");
+			if (settings.getVerbose()) {
+				System.out.println("output: [" + output + "]");
+			}
+
+			settings.getFormatterSettings()
+					.setSmashWhitespace("true".equalsIgnoreCase(cmd.getOptionValue("xsmashwhitespace", "false")));
+			if (settings.getVerbose()) {
+				System.out.println("xsmashwhitespace: [" + settings.getFormatterSettings().getSmashWhitespace() + "]");
+			}
+
+			settings.getFormatterSettings()
+					.setFormatComma("true".equalsIgnoreCase(cmd.getOptionValue("xcomma", "true")));
+			if (settings.getVerbose()) {
+				System.out.println("xcomma: [" + settings.getFormatterSettings().getFormatComma() + "]");
+			}
+
+			settings.getFormatterSettings()
+					.setFormatSemicolon("true".equalsIgnoreCase(cmd.getOptionValue("xsemicolon", "true")));
+			if (settings.getVerbose()) {
+				System.out.println("xsemicolon: [" + settings.getFormatterSettings().getFormatSemicolon() + "]");
+			}
+
+			settings.getFormatterSettings()
+					.setFormatIndent("true".equalsIgnoreCase(cmd.getOptionValue("xindent", "true")));
+			if (settings.getVerbose()) {
+				System.out.println("xindent: [" + settings.getFormatterSettings().getFormatIndent() + "]");
+			}
+
+			settings.getFormatterSettings()
+					.setFormatSpecialChar("true".equalsIgnoreCase(cmd.getOptionValue("xspecialchar", "true")));
+			if (settings.getVerbose()) {
+				System.out.println("xspecialchar: [" + settings.getFormatterSettings().getFormatSpecialChar() + "]");
+			}
+
+			settings.getFormatterSettings()
+					.setFormatBracket("true".equalsIgnoreCase(cmd.getOptionValue("xbracket", "true")));
+			if (settings.getVerbose()) {
+				System.out.println("xbracket: [" + settings.getFormatterSettings().getFormatBracket() + "]");
+			}
+
+			settings.setInputFile(new File(input));
+
+			settings.setOutputFile(new File(output));
+		} catch (ParseException ex) {
+			System.err.println("Parse argument failed. Reason: " + ex.getMessage());
+			showUsage(options);
+		}
+	}
+
+	public static boolean validate(final BlancoApexFormatterCliSettings settings) {
+		if (settings.getInputFile().exists() == false) {
+			System.out.println(
+					"Error: specified input directory [" + settings.getInputFile().getAbsolutePath() + "] not exists.");
+			return false;
+		}
+		if (settings.getInputFile().isDirectory() == false) {
+			System.out.println("Error: specified input directory [" + settings.getInputFile().getAbsolutePath()
+					+ "] is not a directory.");
+			return false;
+		}
+
+		if (settings.getOutputFile().exists() == false) {
+			if (settings.getOutputFile().mkdirs() == false) {
+				System.out.println("Error: fail to create specified output directory ["
+						+ settings.getOutputFile().getAbsolutePath() + "] with error.");
+				return false;
+			}
+		}
+		if (settings.getOutputFile().isDirectory() == false) {
+			System.out.println("Error: specified output directory [" + settings.getOutputFile().getAbsolutePath()
+					+ "] is not a directory.");
+			return false;
+		}
+
+		return true;
+	}
+
+	public static void process(final BlancoApexFormatterCliSettings settings) throws IOException {
+		final List<File> fileList = (List<File>) FileUtils.listFiles(settings.getInputFile(),
+				FileFilterUtils.suffixFileFilter(".cls"), FileFilterUtils.trueFileFilter());
+
+		for (final File readFile : fileList) {
+			final String sourceFileString = FileUtils.readFileToString(readFile, "UTF-8");
+			final String formattedFileString = new BlancoApexFormatter(settings.getFormatterSettings())
+					.format(sourceFileString);
+
+			final File targetFileCandidate = new File(settings.getOutputFile(), readFile.getName());
+			if (targetFileCandidate.exists() == false) {
+				// create.
+				System.out.println("  create: " + targetFileCandidate.getAbsolutePath());
+				FileUtils.writeStringToFile(targetFileCandidate, formattedFileString, "UTF-8");
+			} else {
+				// update.
+				final String targetFileString = FileUtils.readFileToString(targetFileCandidate, "UTF-8");
+				if (formattedFileString.equals(targetFileString)) {
+					// no changes
+					System.out.println("  none  : " + targetFileCandidate.getAbsolutePath());
+				} else {
+					// update
+					System.out.println("  update: " + targetFileCandidate.getAbsolutePath());
+					FileUtils.writeStringToFile(targetFileCandidate, formattedFileString, "UTF-8");
+				}
+			}
+		}
 	}
 }
