@@ -43,10 +43,20 @@ public class BlancoApexFormatterCliSettings {
 	}
 
 	public File getInputFile() {
+		if (inputFile == null) {
+			inputFile = new File(input);
+		}
 		return inputFile;
 	}
 
+	public String getOutput() {
+		return output;
+	}
+
 	public File getOutputFile() {
+		if (outputFile == null) {
+			outputFile = new File(output);
+		}
 		return outputFile;
 	}
 
@@ -62,12 +72,8 @@ public class BlancoApexFormatterCliSettings {
 		this.input = input;
 	}
 
-	public void setInputFile(File inputFile) {
-		this.inputFile = inputFile;
-	}
-
-	public void setOutputFile(File outputFile) {
-		this.outputFile = outputFile;
+	public void setOutput(final String output) {
+		this.output = output;
 	}
 
 	public void setVerbose(boolean isVerbose) {

@@ -176,10 +176,6 @@ public class BlancoApexFormatterCli {
 			if (settings.getVerbose()) {
 				System.out.println("xbracket: [" + settings.getFormatterSettings().getFormatBracket() + "]");
 			}
-
-			settings.setInputFile(new File(input));
-
-			settings.setOutputFile(new File(output));
 		} catch (ParseException ex) {
 			System.err.println("Parse argument failed. Reason: " + ex.getMessage());
 			showUsage(options);
@@ -226,7 +222,11 @@ public class BlancoApexFormatterCli {
 			final File targetFileCandidate = new File(settings.getOutputFile(), readFile.getName());
 			if (targetFileCandidate.exists() == false) {
 				// create.
-				System.out.println("  create: " + targetFileCandidate.getAbsolutePath());
+				if (sourceFileString.equals(formattedFileString)) {
+					System.out.println("  copy  : " + targetFileCandidate.getAbsolutePath());
+				} else {
+					System.out.println("  create: " + targetFileCandidate.getAbsolutePath());
+				}
 				FileUtils.writeStringToFile(targetFileCandidate, formattedFileString, "UTF-8");
 			} else {
 				// update.
