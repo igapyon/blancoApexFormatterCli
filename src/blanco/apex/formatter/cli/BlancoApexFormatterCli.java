@@ -61,9 +61,40 @@ public class BlancoApexFormatterCli {
 				System.out.println("output: [" + output + "]");
 			}
 
-			settings.getFormatterSettings().setSmashWhitespace(cmd.hasOption("xsmashwhitespace"));
+			settings.getFormatterSettings()
+					.setSmashWhitespace("true".equalsIgnoreCase(cmd.getOptionValue("xsmashwhitespace", "false")));
 			if (settings.getVerbose()) {
 				System.out.println("xsmashwhitespace: [" + settings.getFormatterSettings().getSmashWhitespace() + "]");
+			}
+
+			settings.getFormatterSettings()
+					.setFormatComma("true".equalsIgnoreCase(cmd.getOptionValue("xcomma", "true")));
+			if (settings.getVerbose()) {
+				System.out.println("xcomma: [" + settings.getFormatterSettings().getFormatComma() + "]");
+			}
+
+			settings.getFormatterSettings()
+					.setFormatSemicolon("true".equalsIgnoreCase(cmd.getOptionValue("xsemicolon", "true")));
+			if (settings.getVerbose()) {
+				System.out.println("xsemicolon: [" + settings.getFormatterSettings().getFormatSemicolon() + "]");
+			}
+
+			settings.getFormatterSettings()
+					.setFormatIndent("true".equalsIgnoreCase(cmd.getOptionValue("xindent", "true")));
+			if (settings.getVerbose()) {
+				System.out.println("xindent: [" + settings.getFormatterSettings().getFormatIndent() + "]");
+			}
+
+			settings.getFormatterSettings()
+					.setFormatSpecialChar("true".equalsIgnoreCase(cmd.getOptionValue("xspecialchar", "true")));
+			if (settings.getVerbose()) {
+				System.out.println("xspecialchar: [" + settings.getFormatterSettings().getFormatSpecialChar() + "]");
+			}
+
+			settings.getFormatterSettings()
+					.setFormatBracket("true".equalsIgnoreCase(cmd.getOptionValue("xbracket", "true")));
+			if (settings.getVerbose()) {
+				System.out.println("xbracket: [" + settings.getFormatterSettings().getFormatBracket() + "]");
 			}
 
 		} catch (ParseException ex) {
@@ -103,8 +134,33 @@ public class BlancoApexFormatterCli {
 				.hasArg(false) //
 				.desc("run verbose mode.").build());
 
-		options.addOption(Option.builder("xsmashwhitespace").required(false).hasArg(false) //
-				.desc("format with whitespace squish.").build());
+		/////////////////
+		// lexical
+		options.addOption(Option.builder("xsmashwhitespace").required(false) //
+				.hasArg(true).argName("false") //
+				.desc("format with whitespace smash (hard format).").build());
+
+		options.addOption(Option.builder("xcomma").required(false) //
+				.hasArg(true).argName("true") //
+				.desc("format comma.").build());
+
+		options.addOption(Option.builder("xsemicolon").required(false) //
+				.hasArg(true).argName("true") //
+				.desc("format semicolon.").build());
+
+		/////////////////
+		// syntax
+		options.addOption(Option.builder("xindent").required(false) //
+				.hasArg(true).argName("true") //
+				.desc("format indent.").build());
+
+		options.addOption(Option.builder("xspecialchar").required(false) //
+				.hasArg(true).argName("true") //
+				.desc("format special char.").build());
+
+		options.addOption(Option.builder("xbracket").required(false) //
+				.hasArg(true).argName("true") //
+				.desc("format bracket.").build());
 
 		return options;
 	}
