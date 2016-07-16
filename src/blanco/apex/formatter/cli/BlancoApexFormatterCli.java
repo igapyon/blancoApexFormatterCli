@@ -24,11 +24,14 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
 import blanco.apex.formatter.BlancoApexFormatterConstants;
+import blanco.apex.formatter.BlancoApexFormatterSettings;
 import blanco.apex.parser.BlancoApexConstants;
 import blanco.apex.syntaxparser.BlancoApexSyntaxConstants;
 
 public class BlancoApexFormatterCli {
 	public static void main(final String[] args) {
+		final BlancoApexFormatterSettings settings = new BlancoApexFormatterSettings();
+
 		showVersion();
 
 		final Options options = getOptions();
@@ -42,6 +45,23 @@ public class BlancoApexFormatterCli {
 			}
 
 			// main process
+
+			final boolean isVerbose = cmd.hasOption("v");
+
+			final String input = cmd.getOptionValue("i");
+			if (isVerbose) {
+				System.out.println("input: [" + input + "]");
+			}
+
+			final String output = cmd.getOptionValue("o");
+			if (isVerbose) {
+				System.out.println("output: [" + output + "]");
+			}
+
+			settings.setSmashWhitespace(cmd.hasOption("xsmashwhitespace"));
+			if (isVerbose) {
+				System.out.println("xsmashwhitespace: [" + settings.getSmashWhitespace() + "]");
+			}
 
 		} catch (ParseException ex) {
 			System.err.println("Parse argument failed. Reason: " + ex.getMessage());
@@ -80,8 +100,8 @@ public class BlancoApexFormatterCli {
 				.hasArg(false) //
 				.desc("run verbose mode.").build());
 
-		options.addOption(Option.builder("xfws").required(false).hasArg(false) //
-				.argName("format_squishwhitespace").desc("format with whitespace squish.").build());
+		options.addOption(Option.builder("xsmashwhitespace").required(false).hasArg(false) //
+				.desc("format with whitespace squish.").build());
 
 		return options;
 	}
