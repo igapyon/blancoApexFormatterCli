@@ -24,13 +24,13 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
 import blanco.apex.formatter.BlancoApexFormatterConstants;
-import blanco.apex.formatter.BlancoApexFormatterSettings;
 import blanco.apex.parser.BlancoApexConstants;
 import blanco.apex.syntaxparser.BlancoApexSyntaxConstants;
 
 public class BlancoApexFormatterCli {
+
 	public static void main(final String[] args) {
-		final BlancoApexFormatterSettings settings = new BlancoApexFormatterSettings();
+		final BlancoApexFormatterCliSettings settings = new BlancoApexFormatterCliSettings();
 
 		showVersion();
 
@@ -46,21 +46,24 @@ public class BlancoApexFormatterCli {
 
 			// main process
 
-			final boolean isVerbose = cmd.hasOption("v");
+			settings.setVerbose(cmd.hasOption("v"));
+			if (settings.getVerbose()) {
+				System.out.println("verbose: [" + settings.getVerbose() + "]");
+			}
 
 			final String input = cmd.getOptionValue("i");
-			if (isVerbose) {
+			if (settings.getVerbose()) {
 				System.out.println("input: [" + input + "]");
 			}
 
 			final String output = cmd.getOptionValue("o");
-			if (isVerbose) {
+			if (settings.getVerbose()) {
 				System.out.println("output: [" + output + "]");
 			}
 
-			settings.setSmashWhitespace(cmd.hasOption("xsmashwhitespace"));
-			if (isVerbose) {
-				System.out.println("xsmashwhitespace: [" + settings.getSmashWhitespace() + "]");
+			settings.getFormatterSettings().setSmashWhitespace(cmd.hasOption("xsmashwhitespace"));
+			if (settings.getVerbose()) {
+				System.out.println("xsmashwhitespace: [" + settings.getFormatterSettings().getSmashWhitespace() + "]");
 			}
 
 		} catch (ParseException ex) {
