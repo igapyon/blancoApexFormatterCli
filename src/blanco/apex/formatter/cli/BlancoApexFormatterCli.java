@@ -16,6 +16,8 @@
 package blanco.apex.formatter.cli;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.List;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -24,14 +26,17 @@ import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.filefilter.FileFilterUtils;
 
+import blanco.apex.formatter.BlancoApexFormatter;
 import blanco.apex.formatter.BlancoApexFormatterConstants;
 import blanco.apex.parser.BlancoApexConstants;
 import blanco.apex.syntaxparser.BlancoApexSyntaxConstants;
 
 public class BlancoApexFormatterCli {
 
-	public static void main(final String[] args) {
+	public static void main(final String[] args) throws IOException {
 		final BlancoApexFormatterCliSettings settings = new BlancoApexFormatterCliSettings();
 
 		showVersion();
@@ -123,6 +128,33 @@ public class BlancoApexFormatterCli {
 				System.out.println(
 						"Error: specified output directory [" + outputFile.getAbsolutePath() + "] is not a directory.");
 				return;
+			}
+
+			final List<File> fileList = (List<File>) FileUtils.listFiles(inputFile,
+					FileFilterUtils.suffixFileFilter(".cls"), FileFilterUtils.trueFileFilter());
+
+			for (final File readFile : fileList) {
+				final String sourceFileString = FileUtils.readFileToString(readFile, "UTF-8");
+				final String formattedFileString = new BlancoApexFormatter(settings.getFormatterSettings())
+						.format(sourceFileString);
+
+				final File targetFileCandidate = new File(outputFile, readFile.getName());
+				if (targetFileCandidate.exists() == false) {
+					// create.
+					System.out.println("  create: " + targetFileCandidate.getAbsolutePath());
+					FileUtils.writeStringToFile(targetFileCandidate, sourceFileString, "UTF-8");
+				} else {
+					// update.
+					final String targetFileString = FileUtils.readFileToString(targetFileCandidate, "UTF-8");
+					if (formattedFileString.equals(targetFileString)) {
+						// no changes
+						System.out.println("  none  : " + targetFileCandidate.getAbsolutePath());
+					} else {
+						// update
+						System.out.println("  update: " + targetFileCandidate.getAbsolutePath());
+						FileUtils.writeStringToFile(targetFileCandidate, sourceFileString, "UTF-8");
+					}
+				}
 			}
 
 		} catch (ParseException ex) {
