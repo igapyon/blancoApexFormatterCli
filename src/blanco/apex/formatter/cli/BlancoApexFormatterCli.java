@@ -212,6 +212,9 @@ public class BlancoApexFormatterCli {
 	}
 
 	public static void process(final BlancoApexFormatterCliSettings settings) throws IOException {
+		if (settings.getVerbose()) {
+			System.err.println("  lookup directory [" + settings.getInputFile().getAbsolutePath() + "]");
+		}
 		final List<File> fileList = (List<File>) FileUtils.listFiles(settings.getInputFile(),
 				FileFilterUtils.suffixFileFilter(".cls"), FileFilterUtils.trueFileFilter());
 
@@ -221,6 +224,11 @@ public class BlancoApexFormatterCli {
 					.format(sourceFileString);
 
 			final File targetFileCandidate = new File(settings.getOutputFile(), readFile.getName());
+
+			if (settings.getVerbose()) {
+				System.err.println("  try to code format [" + targetFileCandidate.getAbsolutePath() + "]");
+			}
+
 			if (targetFileCandidate.exists() == false) {
 				// create.
 				if (sourceFileString.equals(formattedFileString)) {
