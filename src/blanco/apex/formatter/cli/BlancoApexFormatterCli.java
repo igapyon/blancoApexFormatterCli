@@ -142,7 +142,7 @@ public class BlancoApexFormatterCli {
 				if (targetFileCandidate.exists() == false) {
 					// create.
 					System.out.println("  create: " + targetFileCandidate.getAbsolutePath());
-					FileUtils.writeStringToFile(targetFileCandidate, sourceFileString, "UTF-8");
+					FileUtils.writeStringToFile(targetFileCandidate, formattedFileString, "UTF-8");
 				} else {
 					// update.
 					final String targetFileString = FileUtils.readFileToString(targetFileCandidate, "UTF-8");
@@ -152,7 +152,7 @@ public class BlancoApexFormatterCli {
 					} else {
 						// update
 						System.out.println("  update: " + targetFileCandidate.getAbsolutePath());
-						FileUtils.writeStringToFile(targetFileCandidate, sourceFileString, "UTF-8");
+						FileUtils.writeStringToFile(targetFileCandidate, formattedFileString, "UTF-8");
 					}
 				}
 			}
