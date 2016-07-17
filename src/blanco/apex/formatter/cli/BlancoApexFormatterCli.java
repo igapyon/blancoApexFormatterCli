@@ -70,47 +70,43 @@ public class BlancoApexFormatterCli {
 	public static Options getOptions() {
 		final Options options = new Options();
 		options.addOption(Option.builder("i").longOpt("input") //
-				.required(true) //
 				.hasArg(true).argName("inputdir")//
 				.desc("input directory.").build());
 		options.addOption(Option.builder("o").longOpt("output") //
-				.required(true) //
 				.hasArg(true).argName("outputdir")//
 				.desc("output directory.").build());
 		options.addOption(Option.builder("h").longOpt("help") //
-				.required(false) //
 				.hasArg(false) //
 				.desc("show usage.").build());
 		options.addOption(Option.builder("v").longOpt("verbose") //
-				.required(false) //
 				.hasArg(false) //
 				.desc("run verbose mode.").build());
 
 		/////////////////
 		// lexical
-		options.addOption(Option.builder("xsmashwhitespace").required(false) //
+		options.addOption(Option.builder("xsmashwhitespace") //
 				.hasArg(true).argName("false") //
 				.desc("format with whitespace smash (hard format).").build());
 
-		options.addOption(Option.builder("xcomma").required(false) //
+		options.addOption(Option.builder("xcomma") //
 				.hasArg(true).argName("true") //
 				.desc("format comma.").build());
 
-		options.addOption(Option.builder("xsemicolon").required(false) //
+		options.addOption(Option.builder("xsemicolon") //
 				.hasArg(true).argName("true") //
 				.desc("format semicolon.").build());
 
 		/////////////////
 		// syntax
-		options.addOption(Option.builder("xindent").required(false) //
+		options.addOption(Option.builder("xindent") //
 				.hasArg(true).argName("true") //
 				.desc("format indent.").build());
 
-		options.addOption(Option.builder("xspecialchar").required(false) //
+		options.addOption(Option.builder("xspecialchar") //
 				.hasArg(true).argName("true") //
 				.desc("format special char.").build());
 
-		options.addOption(Option.builder("xbracket").required(false) //
+		options.addOption(Option.builder("xbracket") //
 				.hasArg(true).argName("true") //
 				.desc("format bracket.").build());
 
