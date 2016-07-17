@@ -186,6 +186,10 @@ public class BlancoApexFormatterCli {
 	}
 
 	public static boolean validate(final BlancoApexFormatterCliSettings settings) {
+		if (settings.getInput() == null) {
+			System.out.println("Error: input option required.");
+			return false;
+		}
 		if (settings.getInputFile().exists() == false) {
 			System.out.println(
 					"Error: specified input directory [" + settings.getInputFile().getAbsolutePath() + "] not exists.");
@@ -197,6 +201,10 @@ public class BlancoApexFormatterCli {
 			return false;
 		}
 
+		if (settings.getOutput() == null) {
+			System.out.println("Error: output option required.");
+			return false;
+		}
 		if (settings.getOutputFile().exists() == false) {
 			if (settings.getOutputFile().mkdirs() == false) {
 				System.out.println("Error: fail to create specified output directory ["

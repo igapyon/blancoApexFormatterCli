@@ -29,7 +29,19 @@ Run ant task like below.
 
 ### Command line
 
-To be continued.
+```
+usage: BlancoApexFormatterCli
+ -h,--help                   show usage.
+ -i,--input <inputdir>       input directory.
+ -o,--output <outputdir>     output directory.
+ -v,--verbose                run verbose mode.
+ -xbracket <true>            format bracket.
+ -xcomma <true>              format comma.
+ -xindent <true>             format indent.
+ -xsemicolon <true>          format semicolon.
+ -xsmashwhitespace <false>   format with whitespace smash (hard format).
+ -xspecialchar <true>        format special char.
+```
 
 ## LICENSE
 
