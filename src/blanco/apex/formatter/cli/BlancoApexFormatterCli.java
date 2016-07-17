@@ -17,6 +17,7 @@ package blanco.apex.formatter.cli;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 
 import org.apache.commons.cli.CommandLine;
@@ -27,6 +28,7 @@ import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.comparator.DefaultFileComparator;
 import org.apache.commons.io.filefilter.FileFilterUtils;
 
 import blanco.apex.formatter.BlancoApexFormatter;
@@ -217,6 +219,7 @@ public class BlancoApexFormatterCli {
 		}
 		final List<File> fileList = (List<File>) FileUtils.listFiles(settings.getInputFile(),
 				FileFilterUtils.suffixFileFilter(".cls"), FileFilterUtils.trueFileFilter());
+		Collections.sort(fileList, DefaultFileComparator.DEFAULT_COMPARATOR);
 
 		for (final File readFile : fileList) {
 			final String sourceFileString = FileUtils.readFileToString(readFile, "UTF-8");
