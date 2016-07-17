@@ -23,7 +23,8 @@ Run ant task like below.
 
 ```xml
 	<target name="doFormat">
-		<apexformatter input="./test/data/apex/" output="./test/data/apex.output" verbose="true" xsmashwhitespace="false" />
+		<apexformatter input="./test/data/apex/" output="./test/data/apex.output"
+		               verbose="true" xsmashwhitespace="false" />
 	</target>
 ```
 
