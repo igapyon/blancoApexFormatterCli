@@ -1,15 +1,49 @@
-# blancoApexFormatterCli
-command line interface of code formatter for Apex language written in Java.
+# blancoApexFormatter
+
+blancoApexFormatter is a Apax language source code formatter.
+blancoApexFormatter is written in Java. blancoApexFormatter is provided as an OSS product.
+
+## spec
+
+blancoApexFormatter format Apax code like below:
+
+### before (input)
+
+```java
+@isTest
+public without sharing class MySimpleTest {
+         static testMethod void testMain001(){
+              System.assert(false,
+              'First hello word written in Apex, as a error of test code.');
+}
+}
+```
+
+### after (formatted output)
+
+```java
+@isTest
+public without sharing class MySimpleTest {
+    static testMethod void testMain001() {
+        System.assert(false,
+            'First hello word written in Apex, as a error of test code.');
+    }
+}
+```
 
 ## usage
 
+There is several way to use blancoApexFormatter.
+My currently recommendation is to use blancoApexFormatterCli. blancoApexFormatterCli provides Ant Task and command line interface. See below:
+
 ### Ant task
-Write ant taskdef like below.
+
+Prepare Ant taskdef on your build.xml like below:
 
 ```xml
 	<taskdef name="apexformatter" classname="blanco.apex.formatter.ant.BlancoApexFormatterTask">
 		<classpath>
-			<pathelement location="./blancoApexFormatterCli.jar" />
+			<pathelement location="./lib/blancoApexFormatterCli.jar" />
 			<pathelement location="./lib/blancoApexFormatter.jar" />
 			<pathelement location="./lib/blancoApexSyntaxParser.jar" />
 			<pathelement location="./lib/blancoApexParser.jar" />
@@ -19,16 +53,26 @@ Write ant taskdef like below.
 	</taskdef>
 ```
 
-Run ant task like below.
+Run Ant task of blancoApexFormatter like below:
 
 ```xml
 	<target name="doFormat">
-		<apexformatter input="./test/data/apex/" output="./test/data/apex.output"
-		               verbose="true" xsmashwhitespace="false" />
+		<apexformatter input="./test/data/apex/"
+		               output="./test/data/apex.output"/>
 	</target>
 ```
 
+'input' and 'output' attributes are required.
+
 ### Command line
+
+#### how to run in command line
+
+```
+java -cp blancoApexFormatterCli.jar:lib/blancoApexFormatter.jar:lib/blancoApexSyntaxParser.jar:lib/blancoApexParser.jar:lib/apache/commons-cli-1.3.1.jar:lib/apache/commons-io-2.5.jar blanco.apex.formatter.cli.BlancoApexFormatterCli -i /home/tosiki/workspace/apex-lang/src.apex -o /home/tosiki/workspace/apex-lang/src.apex.output
+```
+
+Command line interface of blancoApexFormatter provides several option like below:
 
 ```
 usage: BlancoApexFormatterCli
@@ -43,6 +87,14 @@ usage: BlancoApexFormatterCli
  -xsmashwhitespace <false>   format with whitespace smash (hard format).
  -xspecialchar <true>        format special char.
 ```
+
+## download
+
+You can download latest version of blancoApexFormatter from URL below:
+
+  https://github.com/igapyon/blancoApexFormatterCli/releases
+
+'Source code (zip)' contains binary jar files of blancoApexFormatter.
 
 ## LICENSE
 
