@@ -134,14 +134,14 @@ public class BlancoApexFormatterCli {
 				System.out.println("verbose: [" + settings.getVerbose() + "]");
 			}
 
-			final String input = cmd.getOptionValue("i");
+			settings.setInput(cmd.getOptionValue("i"));
 			if (settings.getVerbose()) {
-				System.out.println("input: [" + input + "]");
+				System.out.println("input: [" + settings.getInput() + "]");
 			}
 
-			final String output = cmd.getOptionValue("o");
+			settings.setOutput(cmd.getOptionValue("o"));
 			if (settings.getVerbose()) {
-				System.out.println("output: [" + output + "]");
+				System.out.println("output: [" + settings.getOutput() + "]");
 			}
 
 			settings.getFormatterSettings()
