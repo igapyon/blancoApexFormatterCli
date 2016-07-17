@@ -8,7 +8,7 @@ public without sharing class MySimpleTest3 {
     Integer i = 0;
     if (i > 3) {
       System.debug('pass A');
-    } else {
+    } else if (i < 6) {
       System.debug('pass B');
     }
     return;
