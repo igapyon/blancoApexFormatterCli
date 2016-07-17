@@ -9,8 +9,8 @@ public without sharing class MySimpleTest3 {
         if (i > 3) {
             System.debug('pass A');
         } else if (i < 6) {
-                System.debug('pass B');
-            }
-            return;
+            System.debug('pass B');
         }
+        return;
     }
+}
