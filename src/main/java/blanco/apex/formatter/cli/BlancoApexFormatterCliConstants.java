@@ -19,4 +19,8 @@ public class BlancoApexFormatterCliConstants {
     public static String getVersion() {
         return VERSION;
     }
+
+    private BlancoApexFormatterCliConstants() {
+        // do nothing.
+    }
 }
