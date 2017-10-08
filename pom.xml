@@ -177,6 +177,37 @@
                     </execution>
                 </executions>
             </plugin>
+
+
+            <!-- run ant task -->
+            <!-- usage: mvn antrun:run -->
+            <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>1.8</version>
+                <configuration>
+                    <target>
+                        <property name="classpath"
+                            refid="maven.runtime.classpath" />
+                        <java
+                            classname="blanco.apex.formatter.cli.BlancoApexFormatterCli">
+                            <classpath>
+                                <pathelement path="${classpath}" />
+                            </classpath>
+                            <arg value="-i" />
+                            <arg value="./test/data/apex" />
+                            <arg value="-o" />
+                            <arg value="./test/data/apex.output" />
+                        </java>
+                    </target>
+                </configuration>
+                <goals>
+                    <goal>run</goal>
+                </goals>
+                <dependencies>
+                </dependencies>
+            </plugin>
+
+
         </plugins>
     </build>
 </project>
