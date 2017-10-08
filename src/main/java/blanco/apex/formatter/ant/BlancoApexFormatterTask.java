@@ -29,7 +29,13 @@ import blanco.apex.formatter.cli.BlancoApexFormatterCliSettings;
  * @author Toshiki Iga
  */
 public class BlancoApexFormatterTask extends Task {
+    /**
+     * Settings of formatter UI.
+     */
     protected final BlancoApexFormatterCliSettings settings = new BlancoApexFormatterCliSettings();
+
+    //////////////////////////////////
+    // linked with Ant taskdef.
 
     public void setVerbose(final boolean verbose) {
         settings.setVerbose(verbose);
@@ -67,6 +73,9 @@ public class BlancoApexFormatterTask extends Task {
     public void setXbracket(final boolean arg) {
         settings.getFormatterSettings().setFormatBracket(arg);
     }
+
+    // linked with Ant taskdef.
+    //////////////////////////////////
 
     /**
      * Entry point of ant task.

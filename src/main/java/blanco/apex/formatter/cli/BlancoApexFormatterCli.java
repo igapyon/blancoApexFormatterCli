@@ -51,6 +51,7 @@ public class BlancoApexFormatterCli {
      *             I/O Exception.
      */
     public static void main(final String[] args) throws IOException {
+        // Settings of formatter UI.
         final BlancoApexFormatterCliSettings settings = new BlancoApexFormatterCliSettings();
 
         showVersion();
@@ -87,6 +88,11 @@ public class BlancoApexFormatterCli {
         formatter.printHelp("BlancoApexFormatterCli", options);
     }
 
+    /**
+     * Build options object instance.
+     * 
+     * @return Options object instance.
+     */
     public static Options getOptions() {
         final Options options = new Options();
         options.addOption(Option.builder("i").longOpt("input") //
@@ -133,6 +139,16 @@ public class BlancoApexFormatterCli {
         return options;
     }
 
+    /**
+     * Format given apex code.
+     * 
+     * @param settings
+     *            Settings of formatter UI.
+     * @param options
+     *            Options of this CLI.
+     * @param args
+     *            Args of command line.
+     */
     public static void parse(final BlancoApexFormatterCliSettings settings, final Options options,
             final String[] args) {
         final CommandLineParser parser = new DefaultParser();
@@ -201,6 +217,13 @@ public class BlancoApexFormatterCli {
         }
     }
 
+    /**
+     * Validate settings.
+     * 
+     * @param settings
+     *            Settings of formatter UI.
+     * @return true:valid, false:invalid.
+     */
     public static boolean validate(final BlancoApexFormatterCliSettings settings) {
         if (settings.getInput() == null) {
             System.out.println("Error: input option required.");
@@ -237,6 +260,14 @@ public class BlancoApexFormatterCli {
         return true;
     }
 
+    /**
+     * Process format.
+     * 
+     * @param settings
+     *            Settings of formatter UI.
+     * @throws IOException
+     *             I/O Exception.
+     */
     public static void process(final BlancoApexFormatterCliSettings settings) throws IOException {
         if (settings.getVerbose()) {
             System.err.println("  lookup directory [" + settings.getInputFile().getCanonicalPath() + "]");
