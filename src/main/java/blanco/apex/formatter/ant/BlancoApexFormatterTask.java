@@ -24,68 +24,68 @@ import blanco.apex.formatter.cli.BlancoApexFormatterCli;
 import blanco.apex.formatter.cli.BlancoApexFormatterCliSettings;
 
 public class BlancoApexFormatterTask extends Task {
-	protected final BlancoApexFormatterCliSettings settings = new BlancoApexFormatterCliSettings();
+    protected final BlancoApexFormatterCliSettings settings = new BlancoApexFormatterCliSettings();
 
-	public void setVerbose(final boolean verbose) {
-		settings.setVerbose(verbose);
-	}
+    public void setVerbose(final boolean verbose) {
+        settings.setVerbose(verbose);
+    }
 
-	public void setInput(final String input) {
-		settings.setInput(input);
-	}
+    public void setInput(final String input) {
+        settings.setInput(input);
+    }
 
-	public void setOutput(final String output) {
-		settings.setOutput(output);
-	}
+    public void setOutput(final String output) {
+        settings.setOutput(output);
+    }
 
-	public void setXsmashwhitespace(final boolean smashwhitespace) {
-		settings.getFormatterSettings().setSmashWhitespace(smashwhitespace);
+    public void setXsmashwhitespace(final boolean smashwhitespace) {
+        settings.getFormatterSettings().setSmashWhitespace(smashwhitespace);
 
-	}
+    }
 
-	public void setXcomma(final boolean arg) {
-		settings.getFormatterSettings().setFormatComma(arg);
-	}
+    public void setXcomma(final boolean arg) {
+        settings.getFormatterSettings().setFormatComma(arg);
+    }
 
-	public void setXsemicolon(final boolean arg) {
-		settings.getFormatterSettings().setFormatSemicolon(arg);
-	}
+    public void setXsemicolon(final boolean arg) {
+        settings.getFormatterSettings().setFormatSemicolon(arg);
+    }
 
-	public void setXindent(final boolean arg) {
-		settings.getFormatterSettings().setFormatIndent(arg);
-	}
+    public void setXindent(final boolean arg) {
+        settings.getFormatterSettings().setFormatIndent(arg);
+    }
 
-	public void setXspecialchar(final boolean arg) {
-		settings.getFormatterSettings().setFormatSpecialChar(arg);
-	}
+    public void setXspecialchar(final boolean arg) {
+        settings.getFormatterSettings().setFormatSpecialChar(arg);
+    }
 
-	public void setXbracket(final boolean arg) {
-		settings.getFormatterSettings().setFormatBracket(arg);
-	}
+    public void setXbracket(final boolean arg) {
+        settings.getFormatterSettings().setFormatBracket(arg);
+    }
 
-	@Override
-	public void execute() throws BuildException {
-		BlancoApexFormatterCli.showVersion();
+    @Override
+    public void execute() throws BuildException {
+        BlancoApexFormatterCli.showVersion();
 
-		validate();
+        validate();
 
-		if (BlancoApexFormatterCli.validate(settings) == false) {
-			throw new BuildException("Parameter error");
-		}
+        if (BlancoApexFormatterCli.validate(settings) == false) {
+            throw new BuildException("Parameter error");
+        }
 
-		try {
-			BlancoApexFormatterCli.process(settings);
-		} catch (IOException ex) {
-			throw new BuildException(ex);
-		}
-	}
+        try {
+            BlancoApexFormatterCli.process(settings);
+        } catch (IOException ex) {
+            throw new BuildException(ex);
+        }
+    }
 
-	protected void validate() {
-		if (settings.getInput() == null) {
-			throw new BuildException("input attribute is required");
-		}
-		if (settings.getOutput() == null) {
-			throw new BuildException("output attribute is required");
-		}
-	}
+    protected void validate() {
+        if (settings.getInput() == null) {
+            throw new BuildException("input attribute is required");
+        }
+        if (settings.getOutput() == null) {
+            throw new BuildException("output attribute is required");
+        }
+    }
 }

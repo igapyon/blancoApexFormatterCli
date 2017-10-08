@@ -20,63 +20,63 @@ import java.io.File;
 import blanco.apex.formatter.BlancoApexFormatterSettings;
 
 public class BlancoApexFormatterCliSettings {
-	protected boolean isVerbose = false;
+    protected boolean isVerbose = false;
 
-	protected String input = null;
+    protected String input = null;
 
-	protected String output = null;
+    protected String output = null;
 
-	protected BlancoApexFormatterSettings formatterSettings = new BlancoApexFormatterSettings();
+    protected BlancoApexFormatterSettings formatterSettings = new BlancoApexFormatterSettings();
 
-	///////
-	//
-	protected File inputFile = null;
+    ///////
+    //
+    protected File inputFile = null;
 
-	protected File outputFile = null;
+    protected File outputFile = null;
 
-	public BlancoApexFormatterSettings getFormatterSettings() {
-		return formatterSettings;
-	}
+    public BlancoApexFormatterSettings getFormatterSettings() {
+        return formatterSettings;
+    }
 
-	public String getInput() {
-		return input;
-	}
+    public String getInput() {
+        return input;
+    }
 
-	public File getInputFile() {
-		if (inputFile == null) {
-			inputFile = new File(input);
-		}
-		return inputFile;
-	}
+    public File getInputFile() {
+        if (inputFile == null) {
+            inputFile = new File(input);
+        }
+        return inputFile;
+    }
 
-	public String getOutput() {
-		return output;
-	}
+    public String getOutput() {
+        return output;
+    }
 
-	public File getOutputFile() {
-		if (outputFile == null) {
-			outputFile = new File(output);
-		}
-		return outputFile;
-	}
+    public File getOutputFile() {
+        if (outputFile == null) {
+            outputFile = new File(output);
+        }
+        return outputFile;
+    }
 
-	public boolean getVerbose() {
-		return isVerbose;
-	}
+    public boolean getVerbose() {
+        return isVerbose;
+    }
 
-	public void setFormatterSettings(BlancoApexFormatterSettings formatterSettings) {
-		this.formatterSettings = formatterSettings;
-	}
+    public void setFormatterSettings(BlancoApexFormatterSettings formatterSettings) {
+        this.formatterSettings = formatterSettings;
+    }
 
-	public void setInput(String input) {
-		this.input = input;
-	}
+    public void setInput(String input) {
+        this.input = input;
+    }
 
-	public void setOutput(final String output) {
-		this.output = output;
-	}
+    public void setOutput(final String output) {
+        this.output = output;
+    }
 
-	public void setVerbose(boolean isVerbose) {
-		this.isVerbose = isVerbose;
-	}
+    public void setVerbose(boolean isVerbose) {
+        this.isVerbose = isVerbose;
+    }
 }
