@@ -19,13 +19,27 @@ import java.io.File;
 
 import blanco.apex.formatter.BlancoApexFormatterSettings;
 
+/**
+ * Settings of formatter UI.
+ * 
+ * @author Toshiki Iga
+ */
 public class BlancoApexFormatterCliSettings {
     protected boolean isVerbose = false;
 
+    /**
+     * Input directory name.
+     */
     protected String input = null;
 
+    /**
+     * Output directory name.
+     */
     protected String output = null;
 
+    /**
+     * Formatter settings.
+     */
     protected BlancoApexFormatterSettings formatterSettings = new BlancoApexFormatterSettings();
 
     ///////

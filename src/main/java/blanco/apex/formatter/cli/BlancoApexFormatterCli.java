@@ -36,8 +36,20 @@ import blanco.apex.formatter.BlancoApexFormatterConstants;
 import blanco.apex.parser.BlancoApexConstants;
 import blanco.apex.syntaxparser.BlancoApexSyntaxConstants;
 
+/**
+ * CLI entry point for apex code formatter.
+ * 
+ * @author Toshiki Iga
+ */
 public class BlancoApexFormatterCli {
-
+    /**
+     * Entry point of apex code formatter.
+     * 
+     * @param args
+     *            Args of command line.
+     * @throws IOException
+     *             I/O Exception.
+     */
     public static void main(final String[] args) throws IOException {
         final BlancoApexFormatterCliSettings settings = new BlancoApexFormatterCliSettings();
 
@@ -54,6 +66,9 @@ public class BlancoApexFormatterCli {
         process(settings);
     }
 
+    /**
+     * Show version info to standard error.
+     */
     public static void showVersion() {
         System.err.println("BlancoApexFormatterCli");
         System.err.println("    formattercli  : " + BlancoApexFormatterCliConstants.getVersion());
@@ -62,6 +77,11 @@ public class BlancoApexFormatterCli {
         System.err.println("    lexical parser: " + BlancoApexConstants.getVersion());
     }
 
+    /**
+     * Show usage to standard error.
+     * 
+     * @param options
+     */
     public static void showUsage(final Options options) {
         final HelpFormatter formatter = new HelpFormatter();
         formatter.printHelp("BlancoApexFormatterCli", options);

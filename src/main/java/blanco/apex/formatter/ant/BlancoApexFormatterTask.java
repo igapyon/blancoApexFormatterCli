@@ -23,6 +23,11 @@ import org.apache.tools.ant.Task;
 import blanco.apex.formatter.cli.BlancoApexFormatterCli;
 import blanco.apex.formatter.cli.BlancoApexFormatterCliSettings;
 
+/**
+ * Ant task entry point for apex code formatter.
+ * 
+ * @author Toshiki Iga
+ */
 public class BlancoApexFormatterTask extends Task {
     protected final BlancoApexFormatterCliSettings settings = new BlancoApexFormatterCliSettings();
 
@@ -63,6 +68,9 @@ public class BlancoApexFormatterTask extends Task {
         settings.getFormatterSettings().setFormatBracket(arg);
     }
 
+    /**
+     * Entry point of ant task.
+     */
     @Override
     public void execute() throws BuildException {
         BlancoApexFormatterCli.showVersion();
@@ -80,6 +88,9 @@ public class BlancoApexFormatterTask extends Task {
         }
     }
 
+    /**
+     * Validate input.
+     */
     protected void validate() {
         if (settings.getInput() == null) {
             throw new BuildException("input attribute is required");
