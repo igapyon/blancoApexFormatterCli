@@ -82,6 +82,7 @@ public class BlancoApexFormatterCli {
      * Show usage to standard error.
      * 
      * @param options
+     *            Options to show.
      */
     public static void showUsage(final Options options) {
         final HelpFormatter formatter = new HelpFormatter();
