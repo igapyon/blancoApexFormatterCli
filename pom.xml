@@ -3,7 +3,7 @@
     <groupId>jp.igapyon.blanco.apex.formatter.cli</groupId>
     <artifactId>blancoApexFormatterCli</artifactId>
     <packaging>jar</packaging>
-    <version>1.0.1-SNAPSHOT</version>
+    <version>1.0.1</version>
 
     <name>blancoApexFormatterCli</name>
     <description>blancoApexFormatterCli is a simple Apex Formatter UI for developers written in Java.</description>
